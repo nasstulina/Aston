@@ -30,6 +30,7 @@ public class Main {
                 "\nВозрастное ограничение: " + park1.getAgeRestriction() +
                 "\nВместимость человек: " + park1.getCapacity());
     }
+    //Задание №2
         public static class Person {
             String fullNamePerson;
             String postPerson;
