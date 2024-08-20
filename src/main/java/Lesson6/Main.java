@@ -1,4 +1,7 @@
 package Lesson6;
+import java.util.*;
+import java.lang.*;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,6 +10,16 @@ public class Main {
                 "Specialist-expert", "n.mishustina44@gmail.com",
                 "+79293783871", 40000, 24);
         employee1.info();
+
+        System.out.println("Задание №2");
+        Person[] persArray = new Person[5];
+        persArray[0] = new Person("Ivanov Ivan", "Teacher","ivivan@gmail.com", "89643254125", 45000, 34 );
+        System.out.println(Arrays.deepToString(persArray));
+        persArray[1] = new Person("Ivannov Egor", "Doctor", "innegor@mail.ru", "89843453361", 25000, 23);
+        persArray[2] = new Person("Egorov Ivan", "Engineer", "egorov@bk.ru", "89359862435", 35000, 26);
+        persArray[3] = new Person("Petrov Igor", "Mechanic", "petrov23@gmail.com", "83457682539", 40000, 42);
+        persArray[4] = new Person("Sidorov Petr", "Engineer", "sidpetr1995@gmail.com", "89321253684", 45000, 48);
+
 
         System.out.println("\nЗадание №3. Создание класса \"Park\" c вложенным классом.");
         Park.infoAttraction park1 = new Park("Happines", 15,
@@ -18,33 +31,33 @@ public class Main {
                 "\nВозрастное ограничение: " + park1.getAgeRestriction() +
                 "\nВместимость человек: " + park1.getCapacity());
     }
-        /*public class Person{
+        public static class Person {
             String fullNamePerson;
             String postPerson;
             String emailPerson;
             String phoneNumberPerson;
             int salaryPerson;
             int agePerson;
+
+            public Person(String fullNamePerson, String postPerson, String emailPerson,
+                          String phoneNumberPerson, int salaryPerson, int agePerson) {
+                this.fullNamePerson = fullNamePerson;
+                this.postPerson = postPerson;
+                this.emailPerson = emailPerson;
+                this.phoneNumberPerson = phoneNumberPerson;
+                this.salaryPerson = salaryPerson;
+                this.agePerson = agePerson;
+            }
+            /*public void infoPerson(){
+                Person[] persArray = new Person[5];
+                persArray[0] = new Person("Ivanov Ivan", "Teacher","ivivan@gmail.com", "89643254125", 45000, 34 );
+                persArray[1] = new Person("Ivannov Egor", "Doctor", "innegor@mail.ru", "89843453361", 25000, 23);
+                persArray[2] = new Person("Egorov Ivan", "Engineer", "egorov@bk.ru", "89359862435", 35000, 26);
+                persArray[3] = new Person("Petrov Igor", "Mechanic", "petrov23@gmail.com", "83457682539", 40000, 42);
+                persArray[4] = new Person("Sidorov Petr", "Engineer", "sidpetr1995@gmail.com", "89321253684", 45000, 48);
+                System.out.println(Arrays.deepToString(persArray));
+            }*/
         }
-        public Person(String fullNamePerson, String postPerson, String emailPerson,
-                String phoneNumberPerson, int salaryPerson, int agePerson) {
-            this.fullNamePerson = fullNamePerson;
-            this.postPerson = postPerson;
-            this.emailPerson = emailPerson;
-            this.phoneNumberPerson = phoneNumberPerson;
-            this.salaryPerson = salaryPerson;
-            this.agePerson = agePerson;
-        }
-        Person[] persArray = new Person[5];
-        persArray[0] = new Person("Ivannov Ivan", "Engineer", "89243733871", 30000, 30);
-        persArray[1] = new Person("Ivannov Egor", "Engineer", "89243733871", 45000, 25);
-        persArray[2] = new Person("Egorov Ivan", "Engineer", "89243733871", 55200, 35);
-        persArray[3] = new Person("Petrov Igor", "Engineer", "89243733871", 25000, 40);
-        persArray[4] = new Person("Sidorov Petr", "Engineer", "89243733871", 60000, 45);
-    }
-        public void infoPerson() {
-            System.out.println("Full name: " + fullNamePerson + "\nPost: " + postPerson +
-            "\nE-mail: " + emailPerson + "\nPhone number: " + phoneNumberPerson
-            + "\nSalary: " + salaryPerson + "\nAge: " + agePerson);*/
+
 }
 
