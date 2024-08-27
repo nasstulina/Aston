@@ -24,25 +24,31 @@ public class Park {
             this.capacity = capacity;
         }
 
-        public String getWorkTime(){
+        public String getWorkTime() {
             return workTime;
         }
-        public int getPrice(){
+
+        public int getPrice() {
             return price;
         }
-        public int getAgeRestriction(){
+
+        public int getAgeRestriction() {
             return ageRestriction;
         }
-        public int getCapacity(){
+
+        public int getCapacity() {
             return capacity;
         }
-        public String getName(){
+
+        public String getName() {
             return name;
         }
-        public String getWorkSeason(){
+
+        public String getWorkSeason() {
             return workSeason;
         }
-        public int getNumberAttractions(){
+
+        public int getNumberAttractions() {
             return numberAttractions;
         }
     }

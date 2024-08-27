@@ -13,7 +13,7 @@ public class Main {
 
         System.out.println("Задание №2");
         Person[] persArray = new Person[5];
-        persArray[0] = new Person("Ivanov Ivan", "Teacher","ivivan@gmail.com", "89643254125", 45000, 34 );
+        persArray[0] = new Person("Ivanov Ivan", "Teacher", "ivivan@gmail.com", "89643254125", 45000, 34);
         persArray[1] = new Person("Ivannov Egor", "Doctor", "innegor@mail.ru", "89843453361", 25000, 23);
         persArray[2] = new Person("Egorov Ivan", "Engineer", "egorov@bk.ru", "89359862435", 35000, 26);
         persArray[3] = new Person("Petrov Igor", "Mechanic", "petrov23@gmail.com", "83457682539", 40000, 42);
@@ -30,24 +30,25 @@ public class Main {
                 "\nВозрастное ограничение: " + park1.getAgeRestriction() +
                 "\nВместимость человек: " + park1.getCapacity());
     }
-    //Задание №2
-        public static class Person {
-            String fullNamePerson;
-            String postPerson;
-            String emailPerson;
-            String phoneNumberPerson;
-            int salaryPerson;
-            int agePerson;
 
-            public Person(String fullNamePerson, String postPerson, String emailPerson,
-                          String phoneNumberPerson, int salaryPerson, int agePerson) {
-                this.fullNamePerson = fullNamePerson;
-                this.postPerson = postPerson;
-                this.emailPerson = emailPerson;
-                this.phoneNumberPerson = phoneNumberPerson;
-                this.salaryPerson = salaryPerson;
-                this.agePerson = agePerson;
-            }
+    //Задание №2
+    public static class Person {
+        String fullNamePerson;
+        String postPerson;
+        String emailPerson;
+        String phoneNumberPerson;
+        int salaryPerson;
+        int agePerson;
+
+        public Person(String fullNamePerson, String postPerson, String emailPerson,
+                      String phoneNumberPerson, int salaryPerson, int agePerson) {
+            this.fullNamePerson = fullNamePerson;
+            this.postPerson = postPerson;
+            this.emailPerson = emailPerson;
+            this.phoneNumberPerson = phoneNumberPerson;
+            this.salaryPerson = salaryPerson;
+            this.agePerson = agePerson;
         }
+    }
 }
 
