@@ -1,32 +1,32 @@
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 
 import static org.example.MathCalculations.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testng.Assert.assertEquals;
 
 public class Tests {
 
     @Test
     public void factorialTest(){
-        assertEquals(120, factorial(5));
+        assertEquals(factorial(5), 120);
     }
 
     @Test
     public void areaTriangleTest(){
-        assertEquals(6.0, areaTriangle(3, 4, 5));
+        assertEquals(areaTriangle(3, 4, 5), 6.0);
     }
 
     @Test
     public void calculationTest(){
-        assertEquals(11, calculation(5, 6, "+"));
-        assertEquals(-1, calculation(5, 6, "-"));
-        assertEquals(30, calculation(5, 6, "*"));
-        assertEquals(2, calculation(12, 6, "/"));
+        assertEquals(calculation(5, 6, "+"), 11);
+        assertEquals(calculation(5, 6, "-"), -1);
+        assertEquals(calculation(5, 6, "*"), 30);
+        assertEquals(calculation(7, 2, "/"), 3.5);
     }
 
     @Test
     public void compareNumbersTest(){
-        assertEquals("5 < 6", compareNumbers(5, 6));
-        assertEquals("6 > 5", compareNumbers(6, 5));
-        assertEquals("6 = 6", compareNumbers(6, 6));
+        assertEquals(compareNumbers(5, 6), "5 < 6");
+        assertEquals(compareNumbers(6, 5), "6 > 5");
+        assertEquals(compareNumbers(6, 6), "6 = 6");
     }
 }
