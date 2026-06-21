@@ -15,17 +15,13 @@ public class MathCalculations {
     }
 
     public static double calculation(int a, int b, String operation){
-        switch (operation){
-            case "+":
-                return a + b;
-            case "-":
-                return a - b;
-            case "*":
-                return a * b;
-            case "/":
-                return (double) a / b;
-        }
-        return 0;
+        return switch (operation) {
+            case "+" -> a + b;
+            case "-" -> a - b;
+            case "*" -> a * b;
+            case "/" -> (double) a / b;
+            default -> 0;
+        };
     }
 
     public static String compareNumbers(int a, int b){
