@@ -8,6 +8,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 
 public class MtsTests {
@@ -55,7 +58,7 @@ public class MtsTests {
 
 
     @Test
-    public void balancePaymentFieldTest() throws InterruptedException {
+    public void balancePaymentFieldTest(){
 
         WebElement inputPhone = driver.findElement(By.id("connection-phone"));
         inputPhone.sendKeys("297777777");
@@ -67,10 +70,12 @@ public class MtsTests {
                 "//form[@id='pay-connection']/button[@class='button button__default ']"));
         buttonSubmit.click();
 
-        Thread.sleep(10000);
-        driver.switchTo().frame(1);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(1));
 
-        WebElement windowPayment = driver.findElement(By.xpath("//div[@class='pay-description__cost']"));
+
+        WebElement windowPayment = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[contains(@class, 'pay-description__cost')]")));
         assertTrue(windowPayment.isDisplayed());
 
     }
