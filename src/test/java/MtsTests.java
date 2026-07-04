@@ -5,78 +5,115 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class MtsTests {
 
     private static WebDriver driver;
+    private MainPage mainPage;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get("https://www.mts.by/");
+
+        mainPage = new MainPage(driver);
+
         WebElement cookieButton = driver.findElement(By.id("cookie-agree"));
         cookieButton.click();
     }
 
 
     @AfterEach
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
     }
 
 
     @Test
-    public void blockNameCheck(){
-        String title = driver.findElement(By.xpath("//div[@class='pay__wrapper']/h2")).getText();
-        assertEquals("ОНЛАЙН ПОПОЛНЕНИЕ\n" + "БЕЗ КОМИССИИ", title);
+    public void blockNameTest() {
+        String title = mainPage.blockName();
+        String cleanedTitle = title.replace("\n", " ").replaceAll("\\s+", " ")
+                .trim()
+                .toLowerCase();
+        assertEquals("онлайн пополнение без комиссии", cleanedTitle);
     }
 
 
     @Test
-    public void logoCheck(){
-        WebElement pays = driver.findElement(By.xpath("//div[@class='pay__partners']"));
-        assertTrue(pays.isDisplayed());
+    public void logoTest() {
+        assertTrue(mainPage.logoPayment());
     }
 
 
     @Test
-    public void moreLinkTest(){
-        WebElement moreLink = driver.findElement(By.xpath("//a[text()='Подробнее о сервисе']"));
-        moreLink.click();
-
-        WebElement name = driver.findElement(By.xpath("//div[@class='container-fluid']/h3[1]"));
-        assertTrue(name.isDisplayed());
+    public void moreLinkTest() {
+        mainPage.moreLink();
+        assertTrue(driver.getCurrentUrl().contains("poryadok-oplaty-i-bezopasnost-internet-platezhey"));
     }
 
 
     @Test
-    public void balancePaymentFieldTest(){
+    public void balancePaymentFieldTest() {
 
-        WebElement inputPhone = driver.findElement(By.id("connection-phone"));
-        inputPhone.sendKeys("297777777");
+        mainPage.enterPhoneNumber("297777777")
+                .enterSumPayment("1")
+                .submitButtonClick();
 
-        WebElement inputSum = driver.findElement(By.id("connection-sum"));
-        inputSum.sendKeys("1");
+        mainPage.switchToPaymentFrame();
 
-        WebElement buttonSubmit = driver.findElement(By.xpath(
-                "//form[@id='pay-connection']/button[@class='button button__default ']"));
-        buttonSubmit.click();
+        assertAll(
+                () -> assertEquals("1.00 BYN", mainPage.sumPayment(), "Сумма пополнения не совпадает"),
+                () -> assertEquals("Оплатить 1.00 BYN", mainPage.paymentButton(),
+                        "Текст на кнопке оплаты не совпадает"),
+                () -> assertEquals("Оплата: Услуги связи Номер:375297777777", mainPage.payDescription(),
+                        "Описание платежа не совпадает")
+        );
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(1));
+        String[][] options = {
+                {"Номер карты", "creditCard"},
+                {"Срок действия", "expirationDate", },
+                {"CVC", "cvc"},
+                {"Имя и фамилия на карте", "holder"}
+        };
+
+        for (String[] option : options) {
+            assertEquals(option[0], mainPage.getLabelByFormControlName(option[1]));
+        }
 
 
-        WebElement windowPayment = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//div[contains(@class, 'pay-description__cost')]")));
-        assertTrue(windowPayment.isDisplayed());
+    }
+
+    @Test
+    public void paymentOptionsCheck() {
+        String[][] options = {
+                {"Услуги связи",
+                        "Номер телефона", "connection-phone",
+                        "Сумма", "connection-sum",
+                        "E-mail для отправки чека", "connection-email"},
+                {"Домашний интернет",
+                        "Номер абонента", "internet-phone",
+                        "Сумма", "internet-sum",
+                        "E-mail для отправки чека", "internet-email"},
+                {"Рассрочка",
+                        "Номер счета на 44", "score-instalment",
+                        "Сумма", "instalment-sum",
+                        "E-mail для отправки чека", "instalment-email"},
+                {"Задолженность",
+                        "Номер счета на 2073", "score-arrears",
+                        "Сумма", "arrears-sum",
+                        "E-mail для отправки чека", "arrears-email"}
+        };
+
+        for (String[] option : options) {
+            mainPage.selectPaymentOption(option[0]);
+            assertEquals(option[1], mainPage.getPlaceholder(option[2]));
+            assertEquals(option[3], mainPage.getPlaceholder(option[4]));
+            assertEquals(option[5], mainPage.getPlaceholder(option[6]));
+        }
 
     }
 }
