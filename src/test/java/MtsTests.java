@@ -1,11 +1,11 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -34,6 +34,7 @@ public class MtsTests {
 
 
     @Test
+    @DisplayName("Проверка названия блока")
     public void blockNameTest() {
         String title = mainPage.blockName();
         String cleanedTitle = title.replace("\n", " ").replaceAll("\\s+", " ")
@@ -44,12 +45,14 @@ public class MtsTests {
 
 
     @Test
+    @DisplayName("Проверка отображения логотипов платежных систем")
     public void logoTest() {
         assertTrue(mainPage.logoPayment());
     }
 
 
     @Test
+    @DisplayName("Проверка перехода по ссылке")
     public void moreLinkTest() {
         mainPage.moreLink();
         assertTrue(driver.getCurrentUrl().contains("poryadok-oplaty-i-bezopasnost-internet-platezhey"));
@@ -57,6 +60,7 @@ public class MtsTests {
 
 
     @Test
+    @DisplayName("Проверка пополнения баланса")
     public void balancePaymentFieldTest() {
 
         mainPage.enterPhoneNumber("297777777")
@@ -88,6 +92,7 @@ public class MtsTests {
     }
 
     @Test
+    @DisplayName("Проверка полей ввода")
     public void paymentOptionsCheck() {
         String[][] options = {
                 {"Услуги связи",
